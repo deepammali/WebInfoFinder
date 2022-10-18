@@ -632,3 +632,4 @@ if __name__ == "__main__":
             print(target, record_type, options.subs, options.resolvers, options.process_count, output, json_output)
             print_target(target, record_type, options.subs, options.resolvers, options.process_count, output, json_output)
 
+
