@@ -1,18 +1,18 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding:utf-8 -*- 
 #
-# @name   : Infoga - Email Information Gathering
+# @name   : Infoga - Email OSINT
 # @url    : http://github.com/m4ll0k
 # @author : Momo Outaadi (m4ll0k)
 
 import sys
 import json
 import getopt
-# import lib modules
+# infoga.lib
 from lib.check import *
-from lib.banner import Banner 
 from lib.output import *
-# import recon modules
+from lib.banner import Banner
+# infoga.recon
 from recon.ask import *
 from recon.baidu import *
 from recon.bing import *
@@ -21,9 +21,8 @@ from recon.yahoo import *
 from recon.dogpile import *
 from recon.exalead import *
 from recon.google import *
-from recon.pwned import *
-from recon.shodan import *
 from recon.mailtester import *
+from lib.output import PPrint
 
 class infoga(object):
 	""" infoga """
@@ -33,6 +32,7 @@ class infoga(object):
 		self.breach = False
 		self.source = "all"
 		self.listEmail = []
+		self.report = None
 
 	def search(self,module):
 		emails = module.search()
@@ -40,7 +40,7 @@ class infoga(object):
 			for email in emails:
 				if email not in self.listEmail:
 					self.listEmail.append(email)
-			if self.verbose == 2 or self.verbose == 3:
+			if self.verbose in (1,2,3):
 				info('Found %s emails in %s'%(len(emails),
 					module.__class__.__name__))
 
@@ -54,20 +54,14 @@ class infoga(object):
 			for e in engine_list:
 				if e.__class__.__name__.lower() in engine:self.search(e)
 
-	def shodan(self,ip):
-		return Shodan(ip).search()
-
 	def tester(self,email):
 		return MailTester(email).search()
-
-	def pwned(self,email):
-		return Pwned(email).search()
 
 	def main(self):
 		if len(sys.argv) <= 2:Banner().usage(True)
 		try:
-			opts,args = getopt.getopt(sys.argv[1:],'d:s:i:v:hb',
-				['domain=','source=','info=','breach','verbose=','help'])
+			opts,args = getopt.getopt(sys.argv[1:],'d:s:i:v:r:hb',
+				['domain=','source=','info=','breach','verbose=','help','report='])
 		except Exception as e:
 			Banner().usage(True)
 		Banner().banner()
@@ -76,10 +70,12 @@ class infoga(object):
 			if o in ('-v','--verbose'):self.verbose=checkVerbose(a)
 			if o in ('-s','--source'):self.source=checkSource(a)
 			if o in ('-b','--breach'):self.breach=True
-			if o in ('-i','--info'):self.listEmail.append(checkEmail(a))
-			if o in ('-h','--help'):usage(True)
+			if o in ('-r','--report'):self.report= open(a,'w') if a != '' else None
+			if o in ('-i','--info'):
+				self.listEmail.append(checkEmail(a))
+				plus('Searching for: %s'%a)
+			if o in ('-h','--help'):Banner().usage(True)
 		### start ####
-		print 
 		if self.domain != ('' or None):
 			if self.source == 'ask':self.engine(self.domain,'ask')
 			if self.source == 'all':self.engine(self.domain,'all')
@@ -90,17 +86,26 @@ class infoga(object):
 			if self.source == 'exalead':self.engine(self.domain,'exalead')
 			if self.source == 'pgp':self.engine(self.domain,'pgp')
 			if self.source == 'yahoo':self.engine(self.domain,'yahoo')
-		if self.listEmail == ([] or None):exit(warn('Not found emails... :('))
+
+		if self.listEmail == [] or self.listEmail == None:
+			sys.exit(warn('Not found emails... :(')) 
+		
 		for email in self.listEmail:
 			ip = self.tester(email)
 			if ip != ([] or None):
-				for i in ip: # search info and print info :)
-					data(i,json.loads(self.shodan(i)),email,self.verbose)
-					if self.breach:ppwned(self.pwned(email),self.verbose)
+				ips = []
+				for i in ip:
+					if i not in ips:ips.append(i)
+				if len(ips) >=2:
+					info("Found multiple ip for this email...")
+				PPrint(ips,email,self.verbose,self.breach,self.report).output()
 			else:more('Not found any informations for %s'%(email))
+		if self.report != None:
+			info('File saved in: '+self.report.name)
+			self.report.close()
 		# end
 if __name__ == "__main__":
 	try:
 		infoga().main()
 	except KeyboardInterrupt as e:
-		exit(warn('CTRL+C: %s'%e))
+		sys.exit(warn('Exiting...'))

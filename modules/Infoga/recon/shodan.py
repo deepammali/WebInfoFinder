@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding:utf-8 -*- 
 #
 # @name   : Infoga - Email Information Gathering
@@ -22,6 +22,7 @@ class Shodan(Request):
 				method = 'GET',
 				url = url
 				)
+			if resp.status_code != 200: return b'{}'
 			return resp.content
 		except Exception as e:
 			pass

@@ -91,7 +91,7 @@ def iseeverything():
             clear()
             os.system('cd modules/Sublist3r && python3 sublist3r.py -d '+victim)
             back()
-            
+
         elif choose == '9':
             ipgeo = 'https://api.hackertarget.com/geoip/?q='+victim
             info = requests.get(ipgeo)
@@ -165,10 +165,10 @@ def iseeverything():
 
 
         ## Todo Work on later
-        # elif choose == '25':
-        #     clear()
-        #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
-        #     back()
+        elif choose == '25':
+            clear()
+            os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
+            back()
 
 
         # elif choose == '27':
