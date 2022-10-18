@@ -59,7 +59,7 @@ def banner():
         5) Get Robots.txt                           13) http Headers
         6) Host Info Scanner (use WhatWeb)          14) Website Copier (use httrack)
         7) Host Finder                              15) IP Locator
-        8) Find Shared DNS Servers
+        8) Find Shared DNS Servers                  0) EXIT
         """)
 
     print()
@@ -165,10 +165,10 @@ def iseeverything():
         #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
         #     back()
 
-        # elif choose == '26':
-        #     clear()
-        #     os.system('cd modules/Sublist3r && python3 sublist3r.py -d '+victim)
-        #     back()
+        elif choose == '4':
+            clear()
+            os.system('cd modules/Sublist3r && python3 sublist3r.py -d '+victim)
+            back()
 
         # elif choose == '27':
         #     clear()
@@ -191,7 +191,7 @@ def iseeverything():
             os.system('whatweb -v '+victim)
             back()
 
-        elif choose == '22':
+        elif choose == '0':
             exit
 
         else:
