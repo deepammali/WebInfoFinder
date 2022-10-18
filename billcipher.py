@@ -115,7 +115,7 @@ def iseeverything():
 
             if portInput == '1':
                 pn = input("PORT NUMBER: ")
-                os.system("nmap -p" + pn + victim)
+                os.system("nmap -p" + pn + " " + victim)
 
             if portInput == '2':
                 os.system("nmap -p- " + victim)
