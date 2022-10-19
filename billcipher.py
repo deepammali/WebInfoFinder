@@ -52,14 +52,15 @@ def banner():
 #  12) Get Robots.txt""")
 
     print("""\033[96m
-        1) IP Scanner                               9) DNS Lookup
-        2) Port Scanner                             10) Page Links
-        3) WayBack urls                             11) Geo IP
-        4) Subdomain Listing (use Sublistr)         12) Subnet Lookup
-        5) Get Robots.txt                           13) http Headers
-        6) Host Info Scanner (use WhatWeb)          14) Website Copier (use httrack)
-        7) Host Finder                              15) IP Locator
-        8) Find Shared DNS Servers                  0) EXIT
+        1) IP Scanner                               10) DNS Lookup
+        2) Port Scanner                             11) Page Links
+        3) WayBack urls                             12) Geo IP
+        4) Subdomain Listing (use Sublistr)         13) Subnet Lookup
+        5) Get Robots.txt                           14) http Headers
+        6) Host Info Scanner (use WhatWeb)          15) Website Copier (use httrack)
+        7) Host Finder                              16) IP Locator
+        8) Find Shared DNS Servers                  17) EXIT
+        9) Find Admin login site (use Breacher)
         """)
 
     print()
@@ -92,7 +93,7 @@ def iseeverything():
             os.system('cd modules/Sublist3r && python3 sublist3r.py -d '+victim)
             back()
 
-        elif choose == '9':
+        elif choose == '12':
             ipgeo = 'https://api.hackertarget.com/geoip/?q='+victim
             info = requests.get(ipgeo)
             print('\033[91m',info.text)
@@ -171,10 +172,10 @@ def iseeverything():
             back()
 
 
-        # elif choose == '27':
-        #     clear()
-        #     os.system('cd modules/Breacher && python breacher.py -u '+victim)
-        #     back()
+        elif choose == '9':
+            clear()
+            os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
+            back()
 
         # elif choose == '28':
         #     clear()
