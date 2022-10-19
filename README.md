@@ -1,13 +1,4 @@
 # InfoGathering
-git clone https://github.com/GitHackTools/BillCipher
-
-
-
-https://github.com/cipherhexx/dorksploit
-
-
-https://github.com/FrancescoDiSalesGithub/dorker
-
 
 ## TODO
 
