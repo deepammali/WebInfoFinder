@@ -10,7 +10,7 @@ def back():
         print()
         iseeverything()
     elif back[0].upper() == 'N':
-        print('\033[92mRemember https://GitHackTools.blogspot.com')
+        print('\033[92mTHANK YOU!')
         exit
     else:
         print('\033[92m?')
@@ -37,19 +37,6 @@ def bill():
     """)
 
 def banner():
-#     print("""\033[96m
-#  1) DNS Lookup                 13) Host DNS Finder
-#  2) Whois Lookup               14) Reserve IP Lookup
-#  3) GeoIP Lookup               15) Email Gathering (use Infoga)
-#  4) Subnet Lookup              16) Subdomain listing (use Sublist3r)
-#  5) Port Scanner               17) Find Admin login site (use Breacher)
-#  6) Page Links                 18) Check and Bypass CloudFlare (use HatCloud)
-#  7) Zone Transfer              19) Website Copier (use httrack)
-#  8) HTTP Header                20) Host Info Scanner (use WhatWeb)
-#  9) Host Finder                21) About BillCipher
-#  10) IP-Locator                22) Fuck Out Of Here (Exit)
-#  11) Find Shared DNS Servers
-#  12) Get Robots.txt""")
 
     print("""\033[96m
         1) IP Scanner                               10) DNS Lookup
@@ -218,3 +205,19 @@ def iseeverything():
 
 bill()
 iseeverything()
+
+
+
+#     print("""\033[96m
+#  1) DNS Lookup                 13) Host DNS Finder
+#  2) Whois Lookup               14) Reserve IP Lookup
+#  3) GeoIP Lookup               15) Email Gathering (use Infoga)
+#  4) Subnet Lookup              16) Subdomain listing (use Sublist3r)
+#  5) Port Scanner               17) Find Admin login site (use Breacher)
+#  6) Page Links                 18) Check and Bypass CloudFlare (use HatCloud)
+#  7) Zone Transfer              19) Website Copier (use httrack)
+#  8) HTTP Header                20) Host Info Scanner (use WhatWeb)
+#  9) Host Finder                21) About BillCipher
+#  10) IP-Locator                22) Fuck Out Of Here (Exit)
+#  11) Find Shared DNS Servers
+#  12) Get Robots.txt""")
