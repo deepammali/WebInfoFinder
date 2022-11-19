@@ -3,8 +3,8 @@
 ## TODO
 
     a. IP scaner
-    b. google dork
-    <s>c. wayback urls<s>
+~~b. google dork~~
+~~c. wayback urls~~
 
     1. port scanner - nmap
     2. sublistr

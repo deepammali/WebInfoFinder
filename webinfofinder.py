@@ -3,6 +3,7 @@ import os
 import requests
 import platform
 
+
 def back():
     print()
     back = input('\033[92mDo you want to continue? [Yes/No]: ')
@@ -46,8 +47,8 @@ def banner():
         5) Get Robots.txt                           14) http Headers
         6) Host Info Scanner (use WhatWeb)          15) Website Copier (use httrack)
         7) Host Finder                              16) IP Locator
-        8) Find Shared DNS Servers                  17) EXIT
-        9) Find Admin login site (use Breacher)
+        8) Find Shared DNS Servers                  17) Dorking
+        9) Find Admin login site (use Breacher)     18) EXIT
         """)
 
     print()
@@ -85,6 +86,18 @@ def iseeverything():
             info = requests.get(ipgeo)
             print('\033[91m',info.text)
             back()
+        
+        elif choose == '18':
+            #a
+            keywords = input("Enter Keywords: ")
+            os.system('cd modules/Dorker && python3 dorker.py search ' + keywords + " >> output.txt")
+            run = open('modules/Dorker/output.txt','r')
+            file = run.read()
+            for i in file.split(sep="\n"):
+                print('site:*.' + victim + " " + i)
+            run.close()
+            os.system('rm modules/Dorker/output.txt')
+            back()
 
         elif choose == '10':
             subnet = 'http://api.hackertarget.com/subnetcalc/?q='+victim
@@ -116,7 +129,6 @@ def iseeverything():
             back()
 
         elif choose == '3':
-            #a
             statusCode = "0"
 
             option = input("""
