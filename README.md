@@ -4,7 +4,7 @@
 
     a. IP scaner
     b. google dork
-    c. wayback urls
+    <s>c. wayback urls<s>
 
     1. port scanner - nmap
     2. sublistr

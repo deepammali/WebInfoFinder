@@ -115,6 +115,40 @@ def iseeverything():
 
             back()
 
+        elif choose == '3':
+            #a
+            statusCode = "0"
+
+            option = input("""
+            1) Status Code 200
+            2) Status Code 302
+            3) Status Code 403
+            4) Status Code 404
+            5) ALL Urls
+            
+            INPUT: """)
+
+            if (option == "1"):
+                statusCode = "200"
+            elif (option == "2"):
+                statusCode = "302"
+            elif (option == "3"):
+                statusCode = "403"
+            elif (option == "4"):
+                statusCode = "404"
+            elif (option != "5"):
+                print("\n\033[91mNot Valid. Kindly fill the between 1-5 ONLY!")
+                back()
+
+            if (statusCode != "0"):
+                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + "/*&output=text&fl=original&collapse=urlkey&filter=statuscode:"+ statusCode
+            else:
+                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + "/*&output=text&fl=original&collapse=urlkey"
+
+            info = requests.get(pagelink)
+            print('\033[91m',info.text)
+            back()
+
         elif choose == '8':
             pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
             info = requests.get(pagelink)
