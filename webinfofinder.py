@@ -73,16 +73,19 @@ def iseeverything(newTarget):
             newTarget = False
             what = input(
             '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
+            
             if what[0].upper() == 'W':
                 victim = input('Enter the website address: ')
-                banner()
+
             elif what[0].upper() == 'I':
                 victim = input('Enter the IP address (or domain to get IP address of this domain): ')
                 victim = socket.gethostbyname(victim)
-                banner()
+                
             else:
                 print('?')
                 iseeverything(newTarget)
+            
+            banner()
 
         choose = input('What would you like to do? (1-20): ')
 
