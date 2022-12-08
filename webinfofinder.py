@@ -4,18 +4,18 @@ import requests
 import platform
 
 
-def back():
-    print()
-    back = input('\033[92mDo you want to continue? [Yes/No]: ')
-    if back[0].upper() == 'Y':
-        print()
-        iseeverything(newTarget)
-    elif back[0].upper() == 'N':
-        print('\033[92mTHANK YOU!')
-        exit
-    else:
-        print('\033[92m?')
-        exit
+# def back():
+#     print()
+#     back = input('\033[92mDo you want to continue? [Yes/No]: ')
+#     if back[0].upper() == 'Y':
+#         print()
+#         iseeverything(newTarget, victim)
+#     elif back[0].upper() == 'N':
+#         print('\033[92mTHANK YOU!')
+#         exit
+#     else:
+#         print('\033[92m?')
+#         exit
 
 
 def clear():
@@ -53,7 +53,7 @@ def banner():
         07) DNS Lookup                               
         08) Hosts Search                            
         09) Geo Location
-        10) Host Info
+        10) Host Information
         11) List Shared DNS Servers
         12) Dorking
 
@@ -67,10 +67,9 @@ def banner():
     print()
 
 
-def iseeverything(newTarget):
+def iseeverything(newTarget, victim):
     try:
         if newTarget:
-            newTarget = False
             what = input(
             '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
             
@@ -83,7 +82,9 @@ def iseeverything(newTarget):
                 
             else:
                 print('?')
-                iseeverything(newTarget)
+                iseeverything(newTarget, victim)
+
+            newTarget = False
             
             banner()
 
@@ -91,9 +92,10 @@ def iseeverything(newTarget):
 
         if choose == '1':
             ipAddr = socket.gethostbyname(victim)
+            print()
             print(ipAddr)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
             # back()
 
         elif choose == '2':
@@ -113,7 +115,7 @@ def iseeverything(newTarget):
                 os.system("nmap -p- " + victim)
 
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '3':
             statusCode = "0"
@@ -137,7 +139,8 @@ def iseeverything(newTarget):
                 statusCode = "404"
             elif (option != "5"):
                 print("\n\033[91mNot Valid. Kindly fill the between 1-5 ONLY!")
-                back()
+                banner()
+                iseeverything(newTarget, victim)
 
             if (statusCode != "0"):
                 pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + \
@@ -149,40 +152,40 @@ def iseeverything(newTarget):
             info = requests.get(pagelink)
             print('\033[91m', info.text)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '4':
             clear()
             os.system('cd modules/Sublist3r && python3 sublist3r.py -d ' + victim)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '5':
             robots = 'http://' + victim + '/robots.txt'
             info = requests.get(robots)
             print('\033[91m', info.text)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '6':
             clear()
             os.system('whatweb -v '+victim)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '7':
             dnslook = 'https://api.hackertarget.com/dnslookup/?q='+victim
             info = requests.get(dnslook)
             print('\033[91m', info.text)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '8':
             host = 'https://api.hackertarget.com/hostsearch/?q='+victim
             info = requests.get(host)
             print('\033[91m', info.text)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         # elif choose == '7':
         #     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
@@ -195,11 +198,11 @@ def iseeverything(newTarget):
         #     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
         #     back()
 
-        elif choose == '10':
+        elif choose == '010':
             os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
             # option = input('option: ')
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         # elif choose == '10':
         #     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
@@ -213,7 +216,7 @@ def iseeverything(newTarget):
             print('\033[91m', info.text)
             info.close()
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         # elif choose == '13':
         #     os.system('cd websource && mkdir '+victim)
@@ -227,14 +230,14 @@ def iseeverything(newTarget):
             print('\033[91m', info.text)
             info.close()
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '11':
             shared = 'https://api.hackertarget.com/findshareddns/?q='+victim
             info = requests.get(shared)
             print('\033[91m', info.text)
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '12':
             keywords = input("Enter Keywords: ")
@@ -247,7 +250,7 @@ def iseeverything(newTarget):
             run.close()
             os.system('rm modules/Dorker/output.txt')
             banner()
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         # Todo Work on later
         # elif choose == '25':
@@ -263,32 +266,33 @@ def iseeverything(newTarget):
         elif choose == '13':
             clear()
             newTarget = True
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
         elif choose == '14':
             exit
 
         else:
             print('?')
-            iseeverything(newTarget)
+            iseeverything(newTarget, victim)
 
     except socket.gaierror:
         print('Name or service not known!\033[93m')
         print()
-        iseeverything(newTarget)
+        iseeverything(newTarget, victim)
     except UnboundLocalError:
         print('The information you entered is incorrect')
         print()
-        iseeverything(newTarget)
+        iseeverything(newTarget, victim)
     except requests.exceptions.ConnectionError:
         print('Your Internet Offline')
         exit
     except IndexError:
         print('?')
         print()
-        iseeverything(newTarget)
+        iseeverything(newTarget, victim)
 
 
 newTarget = True
+victim = ''
 bill()
-iseeverything(newTarget)
+iseeverything(newTarget, victim)
