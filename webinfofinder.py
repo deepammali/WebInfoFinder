@@ -235,13 +235,13 @@ def iseeverything(newTarget, victim):
             """)
             options = input('Enter Option: ')
             if options.lower() == 'g' or options == '1':
-                os.system('python3 dosattack.py -g ' + victim)
+                os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
             elif options.lower() == 'p' or options == '2':
-                os.system('python3 dosattack.py -g ' + victim)
+                os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
             elif options.lower() == 't' or options == '3':
                 try:
                     t = int(input('Enter number of threads: '))
-                    os.system('python3 dosattack.py -t ' + str(t) + ' -g ' + victim)
+                    os.system('cd modules/dosattack && python3 dosattack.py -t ' + str(t) + ' -g ' + victim)
                 except:
                     print('Please Enter a valid number')
             banner()
@@ -254,7 +254,6 @@ def iseeverything(newTarget, victim):
 
         elif choose == '15':
             exit
-
 
         else:
             print('?')
