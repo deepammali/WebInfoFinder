@@ -230,7 +230,6 @@ def iseeverything(newTarget, victim):
         elif choose == '14':
             exit
 
-
         elif choose == '010':
             os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
             # option = input('option: ')
