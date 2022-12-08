@@ -57,9 +57,10 @@ def banner():
         11) List Shared DNS Servers
         12) Dorking
 
+        13) DOS Attack
 
-        13) Set New Target
-        14) EXIT
+        14) Set New Target
+        15) EXIT
 
 
         """)
@@ -223,18 +224,37 @@ def iseeverything(newTarget, victim):
             iseeverything(newTarget, victim)
 
         elif choose == '13':
+            print("""
+            
+            Options:
+            
+            1) g G        Specify GET request
+            2) p P        Specify POST request
+            3) t T        Specify the number of threads to be used
+
+            """)
+            options = input('Enter Option: ')
+            if options.lower() == 'g' or options == '1':
+                os.system('python3 dosattack.py -g ' + victim)
+            elif options.lower() == 'p' or options == '2':
+                os.system('python3 dosattack.py -g ' + victim)
+            elif options.lower() == 't' or options == '3':
+                try:
+                    t = int(input('Enter number of threads: '))
+                    os.system('python3 dosattack.py -t ' + str(t) + ' -g ' + victim)
+                except:
+                    print('Please Enter a valid number')
+            banner()
+            iseeverything(newTarget, victim)
+
+        elif choose == '14':
             clear()
             newTarget = True
             iseeverything(newTarget, victim)
 
-        elif choose == '14':
+        elif choose == '15':
             exit
 
-        elif choose == '010':
-            os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
-            # option = input('option: ')
-            banner()
-            iseeverything(newTarget, victim)
 
         else:
             print('?')

