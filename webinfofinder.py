@@ -11,7 +11,7 @@ import platform
 #         print()
 #         iseeverything(newTarget, victim)
 #     elif back[0].upper() == 'N':
-#         print('\033[92mTHANK YOU!')
+#         print('\033[92mTHANK YOU!')   
 #         exit
 #     else:
 #         print('\033[92m?')
