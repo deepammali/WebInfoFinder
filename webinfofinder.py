@@ -11,7 +11,7 @@ import platform
 #         print()
 #         iseeverything(newTarget, victim)
 #     elif back[0].upper() == 'N':
-#         print('\033[92mTHANK YOU!')   
+#         print('\033[92mTHANK YOU!')
 #         exit
 #     else:
 #         print('\033[92m?')
@@ -72,21 +72,22 @@ def iseeverything(newTarget, victim):
     try:
         if newTarget:
             what = input(
-            '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
-            
+                '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
+
             if what[0].upper() == 'W':
                 victim = input('Enter the website address: ')
 
             elif what[0].upper() == 'I':
-                victim = input('Enter the IP address (or domain to get IP address of this domain): ')
+                victim = input(
+                    'Enter the IP address (or domain to get IP address of this domain): ')
                 victim = socket.gethostbyname(victim)
-                
+
             else:
                 print('?')
                 iseeverything(newTarget, victim)
 
             newTarget = False
-            
+
             banner()
 
         choose = input('What would you like to do? (1-20): ')
@@ -224,26 +225,34 @@ def iseeverything(newTarget, victim):
             iseeverything(newTarget, victim)
 
         elif choose == '13':
-            print("""
-            
-            Options:
-            
-            1) g G        Specify GET request
-            2) p P        Specify POST request
-            3) t T        Specify the number of threads to be used
+            os.system('cd modules/dosattack && echo "\n" && python3 dosattack.py')
+            argument = input('\nEnter a valid argument for DOS attack: ')
+            os.system('cd modules/dosattack && python3 dosattack.py ' + argument)
+            # print("""
 
-            """)
-            options = input('Enter Option: ')
-            if options.lower() == 'g' or options == '1':
-                os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
-            elif options.lower() == 'p' or options == '2':
-                os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
-            elif options.lower() == 't' or options == '3':
-                try:
-                    t = int(input('Enter number of threads: '))
-                    os.system('cd modules/dosattack && python3 dosattack.py -t ' + str(t) + ' -g ' + victim)
-                except:
-                    print('Please Enter a valid number')
+            # Options:
+
+            # 1) g G        Specify GET request
+            # 2) p P        Specify POST request
+            # 3) t T        Specify the number of threads to be used
+            # 4) ah AH      Specify additional headers
+
+            # """)
+            # options = input('Enter Option: ')
+            # if options.lower() == 'g' or options == '1':
+            #     os.system('cd modules/dosattack && python3 dosattack.py -g ' + url)
+            # elif options.lower() == 'p' or options == '2':
+            #     os.system('cd modules/dosattack && python3 dosattack.py -g ' + url)
+            # elif options.lower() == 't' or options == '3':
+            #     try:
+            #         t = int(input('Enter number of threads: '))
+            #         os.system('cd modules/dosattack && python3 dosattack.py -t ' + str(t) + ' -g ' + url)
+            #     except:
+            #         print('Please Enter a valid number')
+            # elif options.lower() == 'ah' or options == '4':
+            #     additionalHeaders = input('Enter the header: ')
+            #     os.system('cd modules/dosattack && python3 dosattack.py -ah ' + additionalHeaders + ' -g ' + url)
+
             banner()
             iseeverything(newTarget, victim)
 
@@ -281,34 +290,34 @@ victim = ''
 bill()
 iseeverything(newTarget, victim)
 
-        # elif choose == '10':
-        #     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
-        #     info = requests.get(header)
-        #     print('\033[91m', info.text)
-        #     back()
+# elif choose == '10':
+#     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
+#     info = requests.get(header)
+#     print('\033[91m', info.text)
+#     back()
 
-        # elif choose == '7':
-        #     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
-        #     info = requests.get(pagelink)
-        #     print('\033[91m', info.text)
-        #     back()
+# elif choose == '7':
+#     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
+#     info = requests.get(pagelink)
+#     print('\033[91m', info.text)
+#     back()
 
-        # elif choose == '8':
-        #     clear()
-        #     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
-        #     back()
-        # elif choose == '13':
-        #     os.system('cd websource && mkdir '+victim)
-        #     os.system('cd websource && cd '+victim+' && httrack '+victim)
-        #     print("The website source code was saved in folder 'websource'")
-        #     back()
-        # Todo Work on later
-        # elif choose == '25':
-        #     clear()
-        #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
-        #     back()
+# elif choose == '8':
+#     clear()
+#     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
+#     back()
+# elif choose == '13':
+#     os.system('cd websource && mkdir '+victim)
+#     os.system('cd websource && cd '+victim+' && httrack '+victim)
+#     print("The website source code was saved in folder 'websource'")
+#     back()
+# Todo Work on later
+# elif choose == '25':
+#     clear()
+#     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
+#     back()
 
-        # elif choose == '28':
-        #     clear()
-        #     os.system('ruby ./modules/HatCloud/hatcloud.rb -b '+victim)
-        #     back()
+# elif choose == '28':
+#     clear()
+#     os.system('ruby ./modules/HatCloud/hatcloud.rb -b '+victim)
+#     back()
