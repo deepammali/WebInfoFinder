@@ -9,7 +9,7 @@ def back():
     back = input('\033[92mDo you want to continue? [Yes/No]: ')
     if back[0].upper() == 'Y':
         print()
-        iseeverything()
+        iseeverything(newTarget)
     elif back[0].upper() == 'N':
         print('\033[92mTHANK YOU!')
         exit
@@ -17,11 +17,13 @@ def back():
         print('\033[92m?')
         exit
 
+
 def clear():
     if platform.system() == 'Windows':
         os.system('cls')
     else:
         os.system('clear')
+
 
 def bill():
     clear()
@@ -37,78 +39,59 @@ def bill():
                                                                                                                            
     """)
 
+
 def banner():
 
     print("""\033[96m
-        1) IP Scanner                               10) DNS Lookup
-        2) Port Scanner                             11) Page Links
-        3) WayBack urls                             12) Geo IP
-        4) Subdomain Listing (use Sublistr)         13) Subnet Lookup
-        5) Get Robots.txt                           14) http Headers
-        6) Host Info Scanner (use WhatWeb)          15) Website Copier (use httrack)
-        7) Host Finder                              16) IP Locator
-        8) Find Shared DNS Servers                  17) Dorking
-        9) Find Admin login site (use Breacher)     18) EXIT
+
+        01) IP Finder                                
+        02) Port Scanner                             
+        03) WayBack urls                             
+        04) Subdomain Listing (use Sublistr)         
+        05) Get robots.txt                          
+        06) Host Info Scanner (use WhatWeb)         
+        07) DNS Lookup                               
+        08) Hosts Search                            
+        09) Geo Location
+        10) Host Info
+        11) List Shared DNS Servers
+        12) Dorking
+
+
+        13) Set New Target
+        14) EXIT
+
+
         """)
 
     print()
 
-def iseeverything():
+
+def iseeverything(newTarget):
     try:
-        what = input('\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
-        if what[0].upper() == 'W':
-            victim = input('Enter the website address: ')
+        if newTarget:
+            newTarget = False
+            what = input(
+            '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
+            if what[0].upper() == 'W':
+                victim = input('Enter the website address: ')
+                banner()
+            elif what[0].upper() == 'I':
+                victim = input('Enter the IP address (or domain to get IP address of this domain): ')
+                victim = socket.gethostbyname(victim)
+                banner()
+            else:
+                print('?')
+                iseeverything(newTarget)
+
+        choose = input('What would you like to do? (1-20): ')
+
+        if choose == '1':
+            ipAddr = socket.gethostbyname(victim)
+            print(ipAddr)
             banner()
-        elif what[0].upper() == 'I':
-            victim = input('Enter the IP address (or domain to get IP address of this domain): ')
-            victim = socket.gethostbyname(victim)
-            print('The IP address of target is:',victim)
-            banner()
-        else:
-            print('?')
-            iseeverything()
-
-        choose = input('What information would you like to collect? (1-20): ')
-
-        if choose == '7':
-            dnslook = 'https://api.hackertarget.com/dnslookup/?q='+victim
-            info = requests.get(dnslook)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '4':
-            clear()
-            os.system('cd modules/Sublist3r && python3 sublist3r.py -d '+victim)
-            back()
-
-        elif choose == '12':
-            ipgeo = 'https://api.hackertarget.com/geoip/?q='+victim
-            info = requests.get(ipgeo)
-            print('\033[91m',info.text)
-            back()
-        
-        elif choose == '18':
-            #a
-            keywords = input("Enter Keywords: ")
-            os.system('cd modules/Dorker && python3 dorker.py search ' + keywords + " >> output.txt")
-            run = open('modules/Dorker/output.txt','r')
-            file = run.read()
-            for i in file.split(sep="\n"):
-                print('site:*.' + victim + " " + i)
-            run.close()
-            os.system('rm modules/Dorker/output.txt')
-            back()
-
-        elif choose == '10':
-            subnet = 'http://api.hackertarget.com/subnetcalc/?q='+victim
-            info = requests.get(subnet)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '1':
-            clear()
-            os.system("nmap " + victim)
-            back()
+            iseeverything(newTarget)
+            # back()
 
         elif choose == '2':
             clear()
@@ -126,7 +109,8 @@ def iseeverything():
             if portInput == '2':
                 os.system("nmap -p- " + victim)
 
-            back()
+            banner()
+            iseeverything(newTarget)
 
         elif choose == '3':
             statusCode = "0"
@@ -153,62 +137,120 @@ def iseeverything():
                 back()
 
             if (statusCode != "0"):
-                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + "/*&output=text&fl=original&collapse=urlkey&filter=statuscode:"+ statusCode
+                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + \
+                    "/*&output=text&fl=original&collapse=urlkey&filter=statuscode:" + statusCode
             else:
-                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + victim + "/*&output=text&fl=original&collapse=urlkey"
+                pagelink = "http://web.archive.org/cdx/search/cdx?url=*." + \
+                    victim + "/*&output=text&fl=original&collapse=urlkey"
 
             info = requests.get(pagelink)
-            print('\033[91m',info.text)
-            back()
+            print('\033[91m', info.text)
+            banner()
+            iseeverything(newTarget)
 
-        elif choose == '8':
-            pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
-            info = requests.get(pagelink)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '11':
-            header = 'https://api.hackertarget.com/httpheaders/?q='+victim
-            info = requests.get(header)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '7':
-            host = 'https://api.hackertarget.com/hostsearch/?q='+victim
-            info = requests.get(host)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '14':
-            iplt = 'https://ipinfo.io/'+victim+'/json'
-            info = requests.get(iplt)
-            print('\033[91m',info.text)
-            back()
-
-        elif choose == '15':
-            shared = 'https://api.hackertarget.com/findshareddns/?q='+victim
-            info = requests.get(shared)
-            print('\033[91m',info.text)
-            back()
+        elif choose == '4':
+            clear()
+            os.system('cd modules/Sublist3r && python3 sublist3r.py -d ' + victim)
+            banner()
+            iseeverything(newTarget)
 
         elif choose == '5':
-            robots ='http://'+victim+'/robots.txt'
+            robots = 'http://' + victim + '/robots.txt'
             info = requests.get(robots)
-            print('\033[91m',info.text)
-            back()
+            print('\033[91m', info.text)
+            banner()
+            iseeverything(newTarget)
 
-
-        ## Todo Work on later
-        elif choose == '25':
+        elif choose == '6':
             clear()
-            os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
-            back()
+            os.system('whatweb -v '+victim)
+            banner()
+            iseeverything(newTarget)
 
+        elif choose == '7':
+            dnslook = 'https://api.hackertarget.com/dnslookup/?q='+victim
+            info = requests.get(dnslook)
+            print('\033[91m', info.text)
+            banner()
+            iseeverything(newTarget)
+
+        elif choose == '8':
+            host = 'https://api.hackertarget.com/hostsearch/?q='+victim
+            info = requests.get(host)
+            print('\033[91m', info.text)
+            banner()
+            iseeverything(newTarget)
+
+        # elif choose == '7':
+        #     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
+        #     info = requests.get(pagelink)
+        #     print('\033[91m', info.text)
+        #     back()
+
+        # elif choose == '8':
+        #     clear()
+        #     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
+        #     back()
+
+        elif choose == '10':
+            os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
+            # option = input('option: ')
+            banner()
+            iseeverything(newTarget)
+
+        # elif choose == '10':
+        #     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
+        #     info = requests.get(header)
+        #     print('\033[91m', info.text)
+        #     back()
 
         elif choose == '9':
-            clear()
-            os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
-            back()
+            ipgeo = 'https://api.hackertarget.com/geoip/?q='+victim
+            info = requests.get(ipgeo)
+            print('\033[91m', info.text)
+            info.close()
+            banner()
+            iseeverything(newTarget)
+
+        # elif choose == '13':
+        #     os.system('cd websource && mkdir '+victim)
+        #     os.system('cd websource && cd '+victim+' && httrack '+victim)
+        #     print("The website source code was saved in folder 'websource'")
+        #     back()
+
+        elif choose == '10':  # Host Information
+            iplt = 'https://ipinfo.io/'+socket.gethostbyname(victim)+'/json'
+            info = requests.get(iplt)
+            print('\033[91m', info.text)
+            info.close()
+            banner()
+            iseeverything(newTarget)
+
+        elif choose == '11':
+            shared = 'https://api.hackertarget.com/findshareddns/?q='+victim
+            info = requests.get(shared)
+            print('\033[91m', info.text)
+            banner()
+            iseeverything(newTarget)
+
+        elif choose == '12':
+            keywords = input("Enter Keywords: ")
+            os.system('cd modules/Dorker && python3 dorker.py search ' +
+                      keywords + " >> output.txt")
+            run = open('modules/Dorker/output.txt', 'r')
+            file = run.read()
+            for i in file.split(sep="\n"):
+                print('site:*.' + victim + " " + i)
+            run.close()
+            os.system('rm modules/Dorker/output.txt')
+            banner()
+            iseeverything(newTarget)
+
+        # Todo Work on later
+        # elif choose == '25':
+        #     clear()
+        #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
+        #     back()
 
         # elif choose == '28':
         #     clear()
@@ -216,54 +258,34 @@ def iseeverything():
         #     back()
 
         elif choose == '13':
-            os.system('cd websource && mkdir '+victim)
-            os.system('cd websource && cd '+victim+' && httrack '+victim)
-            print("The website source code was saved in folder 'websource'")
-            back()
-
-        elif choose == '6':
             clear()
-            os.system('whatweb -v '+victim)
-            back()
+            newTarget = True
+            iseeverything(newTarget)
 
-        elif choose == '0':
+        elif choose == '14':
             exit
 
         else:
             print('?')
-            iseeverything()
-            
+            iseeverything(newTarget)
+
     except socket.gaierror:
         print('Name or service not known!\033[93m')
         print()
-        iseeverything()
+        iseeverything(newTarget)
     except UnboundLocalError:
         print('The information you entered is incorrect')
         print()
-        iseeverything()
+        iseeverything(newTarget)
     except requests.exceptions.ConnectionError:
         print('Your Internet Offline')
         exit
     except IndexError:
         print('?')
         print()
-        iseeverything()
+        iseeverything(newTarget)
 
+
+newTarget = True
 bill()
-iseeverything()
-
-
-
-#     print("""\033[96m
-#  1) DNS Lookup                 13) Host DNS Finder
-#  2) Whois Lookup               14) Reserve IP Lookup
-#  3) GeoIP Lookup               15) Email Gathering (use Infoga)
-#  4) Subnet Lookup              16) Subdomain listing (use Sublist3r)
-#  5) Port Scanner               17) Find Admin login site (use Breacher)
-#  6) Page Links                 18) Check and Bypass CloudFlare (use HatCloud)
-#  7) Zone Transfer              19) Website Copier (use httrack)
-#  8) HTTP Header                20) Host Info Scanner (use WhatWeb)
-#  9) Host Finder                21) About BillCipher
-#  10) IP-Locator                22) Fuck Out Of Here (Exit)
-#  11) Find Shared DNS Servers
-#  12) Get Robots.txt""")
+iseeverything(newTarget)

@@ -10,3 +10,7 @@
     2. sublistr
     3. httrack (required linux)
     4. nmap (required linux)
+
+
+req
+ whatweb
