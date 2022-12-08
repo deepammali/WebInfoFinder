@@ -96,7 +96,6 @@ def iseeverything(newTarget, victim):
             print(ipAddr)
             banner()
             iseeverything(newTarget, victim)
-            # back()
 
         elif choose == '2':
             clear()
@@ -187,29 +186,6 @@ def iseeverything(newTarget, victim):
             banner()
             iseeverything(newTarget, victim)
 
-        # elif choose == '7':
-        #     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
-        #     info = requests.get(pagelink)
-        #     print('\033[91m', info.text)
-        #     back()
-
-        # elif choose == '8':
-        #     clear()
-        #     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
-        #     back()
-
-        elif choose == '010':
-            os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
-            # option = input('option: ')
-            banner()
-            iseeverything(newTarget, victim)
-
-        # elif choose == '10':
-        #     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
-        #     info = requests.get(header)
-        #     print('\033[91m', info.text)
-        #     back()
-
         elif choose == '9':
             ipgeo = 'https://api.hackertarget.com/geoip/?q='+victim
             info = requests.get(ipgeo)
@@ -217,12 +193,6 @@ def iseeverything(newTarget, victim):
             info.close()
             banner()
             iseeverything(newTarget, victim)
-
-        # elif choose == '13':
-        #     os.system('cd websource && mkdir '+victim)
-        #     os.system('cd websource && cd '+victim+' && httrack '+victim)
-        #     print("The website source code was saved in folder 'websource'")
-        #     back()
 
         elif choose == '10':  # Host Information
             iplt = 'https://ipinfo.io/'+socket.gethostbyname(victim)+'/json'
@@ -252,17 +222,6 @@ def iseeverything(newTarget, victim):
             banner()
             iseeverything(newTarget, victim)
 
-        # Todo Work on later
-        # elif choose == '25':
-        #     clear()
-        #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
-        #     back()
-
-        # elif choose == '28':
-        #     clear()
-        #     os.system('ruby ./modules/HatCloud/hatcloud.rb -b '+victim)
-        #     back()
-
         elif choose == '13':
             clear()
             newTarget = True
@@ -270,6 +229,13 @@ def iseeverything(newTarget, victim):
 
         elif choose == '14':
             exit
+
+
+        elif choose == '010':
+            os.system('cd modules/dosattack && python3 dosattack.py -g ' + victim)
+            # option = input('option: ')
+            banner()
+            iseeverything(newTarget, victim)
 
         else:
             print('?')
@@ -296,3 +262,35 @@ newTarget = True
 victim = ''
 bill()
 iseeverything(newTarget, victim)
+
+        # elif choose == '10':
+        #     header = 'https://api.hackertarget.com/httpheaders/?q='+victim
+        #     info = requests.get(header)
+        #     print('\033[91m', info.text)
+        #     back()
+
+        # elif choose == '7':
+        #     pagelink = 'https://api.hackertarget.com/pagelinks/?q='+victim
+        #     info = requests.get(pagelink)
+        #     print('\033[91m', info.text)
+        #     back()
+
+        # elif choose == '8':
+        #     clear()
+        #     os.system('cd modules/Breacher && python3 breacher.py -u '+victim)
+        #     back()
+        # elif choose == '13':
+        #     os.system('cd websource && mkdir '+victim)
+        #     os.system('cd websource && cd '+victim+' && httrack '+victim)
+        #     print("The website source code was saved in folder 'websource'")
+        #     back()
+        # Todo Work on later
+        # elif choose == '25':
+        #     clear()
+        #     os.system('cd modules/Infoga && python3 infoga.py --domain '+victim)
+        #     back()
+
+        # elif choose == '28':
+        #     clear()
+        #     os.system('ruby ./modules/HatCloud/hatcloud.rb -b '+victim)
+        #     back()
