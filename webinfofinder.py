@@ -56,11 +56,12 @@ def banner():
         10) Host Information
         11) List Shared DNS Servers
         12) Dorking
+        13) Check if domain email spoofable
 
-        13) DOS Attack
+        14) DOS Attack
 
-        14) Set New Target
-        15) EXIT
+        15) Set New Target
+        16) EXIT
 
 
         """)
@@ -79,7 +80,7 @@ def iseeverything(newTarget, victim):
 
             elif what[0].upper() == 'I':
                 victim = input(
-                    'Enter the IP address (or domain to get IP address of this domain): ')
+                    'Enter the IP address: ')
                 victim = socket.gethostbyname(victim)
 
             else:
@@ -225,6 +226,12 @@ def iseeverything(newTarget, victim):
             iseeverything(newTarget, victim)
 
         elif choose == '13':
+            clear()
+            os.system('cd modules/EmailSpoof && python3 checkSpoofable.py ' + victim)
+            banner()
+            iseeverything(newTarget, victim)
+
+        elif choose == '14':
             os.system('cd modules/dosattack && echo "\n" && python3 dosattack.py')
             argument = input('\nEnter a valid argument for DOS attack: ')
             os.system('cd modules/dosattack && python3 dosattack.py ' + argument)
@@ -256,12 +263,12 @@ def iseeverything(newTarget, victim):
             banner()
             iseeverything(newTarget, victim)
 
-        elif choose == '14':
+        elif choose == '15':
             clear()
             newTarget = True
             iseeverything(newTarget, victim)
 
-        elif choose == '15':
+        elif choose == '16' or choose == "exit":
             exit
 
         else:
