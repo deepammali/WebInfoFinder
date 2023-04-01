@@ -76,7 +76,7 @@ def iseeverything(newTarget, victim):
                 '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
 
             if what[0].upper() == 'W':
-                victim = input('Enter the website address: ')
+                victim = input('Enter the web address: ')
 
             elif what[0].upper() == 'I':
                 victim = input(
@@ -269,6 +269,7 @@ def iseeverything(newTarget, victim):
             iseeverything(newTarget, victim)
 
         elif choose == '16' or choose == "exit":
+            print("Thank You")
             exit
 
         else:
