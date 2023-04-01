@@ -5,6 +5,9 @@ import re
 import sys
 from colorama import Fore, init, Style
 
+dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+dns.resolver.default_resolver.nameservers=['8.8.8.8']
+
 def getSPF(resolver, domain):
 	spfRegex = re.compile("^\"(v=spf1).*\"$")
 	try:
@@ -30,7 +33,7 @@ def getDMARC(resolver, domain):
 def main():
 	try:
 		domain = sys.argv[1]
-		resolver = dns.resolver.Resolver()
+		resolver = dns.resolver.Resolver(configure=False)
 		spfRecord = getSPF(resolver, domain)
 		spoofable = False
 		if spfRecord:
