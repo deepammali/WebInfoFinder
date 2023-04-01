@@ -269,7 +269,7 @@ def iseeverything(newTarget, victim):
             iseeverything(newTarget, victim)
 
         elif choose == '16' or choose == "exit":
-            print("Thank You")
+            print("\033[91m\n\nThank You")
             exit
 
         else:
