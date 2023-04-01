@@ -68,6 +68,9 @@ def main():
 			print("\n" + Fore.GREEN + domain + " is spoofable.")
 		else:
 			print("\n" + Fore.RED + domain + " is NOT spoofable.")
+	except dns.resolver.LifetimeTimeout:
+		print("\n\033[93m DNS EXCEPTION: DNS LOOKUP TIME OUT")
+		print("-----------------------------------")
 	except Exception:
 		print("\n\033[93m PLEASE GIVE DOMAIN NAME AS INPUT")
 		print("--------------------------------")
