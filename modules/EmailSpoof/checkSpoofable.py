@@ -74,8 +74,7 @@ def main():
 	except dns.resolver.LifetimeTimeout:
 		print("\n\033[93m DNS EXCEPTION: DNS LOOKUP TIME OUT")
 		print("-----------------------------------")
-	except Exception as e:
-		print(e + "\n")
+	except Exception:
 		print("\n\033[93m PLEASE GIVE DOMAIN NAME AS INPUT")
 		print("--------------------------------")
 
