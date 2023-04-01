@@ -33,7 +33,7 @@ def getDMARC(resolver, domain):
 def main():
 	try:
 		domain = sys.argv[1]
-		resolver = dns.resolver.Resolver(configure=False)
+		resolver = dns.resolver.Resolver()
 		spfRecord = getSPF(resolver, domain)
 		spoofable = False
 		if spfRecord:
