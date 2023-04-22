@@ -57,12 +57,9 @@ def banner():
         11) List Shared DNS Servers
         12) Dorking
         13) Check if domain email spoofable
-
         14) DOS Attack
-
         15) Set New Target
         16) EXIT
-
 
         """)
 
@@ -73,7 +70,7 @@ def iseeverything(newTarget, victim):
     try:
         if newTarget:
             what = input(
-                '\033[92mAre you want to collect information of website or IP address? [website/IP]: ')
+                '\033[92mDo you want to collect the information of Website or IP address? [Website/IP]: ')
 
             if what[0].upper() == 'W':
                 victim = input('Enter the web address: ')
