@@ -1,7 +1,7 @@
 # InfoGathering
 
-git clone https://github.com/deepammali/WebInfoFinder
+*git clone https://github.com/deepammali/WebInfoFinder*
 
-cd WebInfoFinder
+*cd WebInfoFinder*
 
-pip install -r requirements.txt
+*pip install -r requirements.txt*
